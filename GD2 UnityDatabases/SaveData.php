@@ -14,12 +14,12 @@
     $conn = mysqli_connect($host, $user, $password, $database) or die('Failed to connect: ' . mysqli_error());
     
     $query="INSERT INTO HighScores(id, score, name) VALUES(DEFAULT, '$score', Silvan);";
-    $result=mysqli_query($query);
+    $result=mysqli_query($conn, $query);
 
     if ($result) {
       echo "New record created successfully";
     } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        echo "Error: " . $query . "<br>" . mysqli_error($conn);
     }
 
   } else{
