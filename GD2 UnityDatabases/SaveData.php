@@ -1,25 +1,29 @@
 <?php
   $score=$_REQUEST['score'];
-  $server = 'localhost';
-  $username = 'Student';
-  $password = 'NicCage';
-  $database = 'hers_myRunner';
-  //sanitize input
 
-  //check if score was empty. Remember to put ?score=### after your url to insert a score
+  $host = 'localhost';
+  $user = 'root';
+  $password = '';
+  $database = 'hers_TD';
+  //TODO: Player name?
+  //TODO: sanitize input
+
+  //if no score is defined, code won't work
   if($score != ""){
-    //make connection with the database
-    $database = mysqli_connect($server, $username, $password, $database) or die('Failed to connect: ' . mysql_error());
-
-    //create the SQL statement used to insert data into the database
-    //use your own table name, value names and values.
-    $query="INSERT INTO HighScores(ID, Score) VALUES(DEFAULT, '$score');";
-    //Run the SQL query
+    //connect with database (other user/password combinations may be needed)
+    $conn = mysqli_connect($host, $user, $password, $database) or die('Failed to connect: ' . mysqli_error());
+    
+    $query="INSERT INTO HighScores(id, score, name) VALUES(DEFAULT, '$score', Silvan);";
     $result=mysqli_query($query);
-    //If no error occured this gets printed. If nothing happens in the database, this means that the SQL query wasn't executed.
-    echo "$result success?";
+
+    if ($result) {
+      echo "New record created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
+
   } else{
-    echo "Bro score was empty bro";
+    echo "Score was empty";
   }
 
  ?>
